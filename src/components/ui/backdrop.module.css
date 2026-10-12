@@ -1,0 +1,22 @@
+.backdrop {
+  position: relative;
+  background: linear-gradient(180deg, var(--canvas-from), var(--canvas-to));
+}
+
+/*
+ * The pattern is a mask, not a background image: the shapes take their colour from a
+ * variable, so one file serves both themes.
+ */
+.backdrop::before {
+  position: absolute;
+  inset: 0;
+  background: var(--canvas-pattern);
+  content: '';
+  mask: url('../../assets/space-pattern.svg') 0 0 / 280px repeat;
+  pointer-events: none;
+}
+
+/* Content is painted above the pattern. */
+.backdrop > * {
+  position: relative;
+}
