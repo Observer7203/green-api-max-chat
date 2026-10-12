@@ -1,0 +1,124 @@
+:root {
+  color-scheme: light dark;
+
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --radius-s: 10px;
+  --radius-m: 14px;
+  --radius-l: 20px;
+  --radius-xl: 28px;
+
+  --page: light-dark(#ffffff, #0f1115);
+  --surface: light-dark(#ffffff, #17191e);
+  --surface-muted: light-dark(#f1f2f4, #22252c);
+  --surface-hover: light-dark(#e8eaee, #2a2e36);
+  --border: light-dark(#e6e8ec, #262a31);
+
+  --text: light-dark(#0d0f12, #f2f3f5);
+  --text-muted: light-dark(#6b7280, #8e949e);
+
+  --accent: light-dark(#0070f3, #2b83f6);
+  --accent-hover: light-dark(#005fd1, #4c98f8);
+  --on-accent: #ffffff;
+  --link: light-dark(#0062d6, #6cb0ff);
+
+  /* The chat backdrop: a blue-to-teal gradient under a pattern of space doodles. */
+  --canvas-from: light-dark(#86b5f7, #1a2b4a);
+  --canvas-to: light-dark(#a9d8cf, #173a3b);
+  --canvas-pattern: light-dark(rgb(40 100 220 / 0.22), rgb(150 190 255 / 0.12));
+
+  /* Translucent panels that sit on the backdrop. */
+  --glass: light-dark(rgb(255 255 255 / 0.8), rgb(23 25 30 / 0.8));
+  --glass-border: light-dark(rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.08));
+  --day-pill: light-dark(rgb(52 110 210 / 0.5), rgb(255 255 255 / 0.14));
+
+  --bubble-in: light-dark(#ffffff, #23262d);
+  --bubble-out: light-dark(#e6f2ff, #2a4a7d);
+  --bubble-out-meta: light-dark(#3a72c8, #a9c8f5);
+  --read: light-dark(#0070f3, #7db8ff);
+
+  --danger: light-dark(#b3261e, #ff8a80);
+  --danger-soft: light-dark(#fce8e6, #3b1d1b);
+  --warning: light-dark(#6b4e00, #ffd76a);
+  --warning-soft: light-dark(#fff3cf, #3a2f10);
+
+  --shadow: 0 1px 2px rgb(16 24 40 / 0.1);
+  --shadow-float: 0 4px 16px rgb(16 40 90 / 0.16);
+  --focus-ring: 0 0 0 3px light-dark(rgb(0 112 243 / 0.3), rgb(61 148 255 / 0.45));
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea {
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+h1,
+h2,
+p,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--link);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
