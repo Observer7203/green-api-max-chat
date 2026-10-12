@@ -1,0 +1,12 @@
+.status {
+  display: inline-flex;
+  flex: none;
+}
+
+.read {
+  color: var(--read);
+}
+
+.failed {
+  color: var(--danger);
+}

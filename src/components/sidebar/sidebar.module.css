@@ -1,0 +1,7 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+}

@@ -1,0 +1,43 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 12px 4px 16px;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.state {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.instance {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.online {
+  background: #22b455;
+}

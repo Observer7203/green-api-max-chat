@@ -1,0 +1,81 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: min(75%, 560px);
+}
+
+.incoming {
+  align-items: flex-start;
+  align-self: flex-start;
+}
+
+.outgoing {
+  align-items: flex-end;
+  align-self: flex-end;
+}
+
+.bubble {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 2px 10px;
+  padding: 7px 12px;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.incoming .bubble {
+  border-bottom-left-radius: 6px;
+  background: var(--bubble-in);
+}
+
+.outgoing .bubble {
+  border-bottom-right-radius: 6px;
+  background: var(--bubble-out);
+}
+
+.sender {
+  flex-basis: 100%;
+  color: var(--link);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.text {
+  flex: 1 1 auto;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.meta {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.outgoing .meta {
+  color: var(--bubble-out-meta);
+}
+
+.failure {
+  padding: 2px 10px;
+  border-radius: var(--radius-s);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: 12px;
+  text-align: right;
+}
+
+.retry {
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  font-weight: 600;
+  text-decoration: underline;
+}

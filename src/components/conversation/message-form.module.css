@@ -1,0 +1,49 @@
+/* A floating bar over the backdrop, with the round send button inside it. */
+.form {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin: 0 clamp(12px, 5%, 64px) 16px;
+  padding: 6px 6px 6px 18px;
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: var(--shadow-float);
+}
+
+.form:focus-within {
+  box-shadow: var(--shadow-float), var(--focus-ring);
+}
+
+.textarea {
+  flex: 1;
+  max-height: 140px;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  line-height: 20px;
+  resize: none;
+}
+
+.textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* The ring is drawn around the whole bar instead. */
+.textarea:focus-visible {
+  box-shadow: none;
+}
+
+.form .send {
+  width: 36px;
+  height: 36px;
+}
+
+.form .send:not(:disabled),
+.form .send:hover:not(:disabled) {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.form .send:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
