@@ -53,7 +53,7 @@ describe('sending a message', () => {
       { id: 'SERVER-ID', status: 'sent' },
     ]);
     expect(fetchMock.mock.calls[0][0].url).toBe(
-      `${TEST_INSTANCE.apiUrl}/waInstance${TEST_INSTANCE.idInstance}/sendMessage/${TEST_INSTANCE.apiTokenInstance}`
+      `https://1101.api.green-api.com/waInstance${TEST_INSTANCE.idInstance}/sendMessage/${TEST_INSTANCE.apiTokenInstance}`
     );
   });
 

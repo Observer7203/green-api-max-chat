@@ -45,8 +45,6 @@ const logIn = async (token = TEST_INSTANCE.apiTokenInstance) => {
 
   await user.type(screen.getByLabelText('idInstance'), TEST_INSTANCE.idInstance);
   await user.type(screen.getByLabelText('apiTokenInstance'), token);
-  await user.clear(screen.getByLabelText('Адрес API'));
-  await user.type(screen.getByLabelText('Адрес API'), `${TEST_INSTANCE.apiUrl}/`);
   await user.click(screen.getByRole('button', { name: 'Войти' }));
 
   return { user, ...rendered };

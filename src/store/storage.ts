@@ -1,7 +1,7 @@
 import type { Instance } from '@/types';
 
 const STORAGE_KEY = 'green-chat:instance';
-const INSTANCE_FIELDS = ['apiUrl', 'idInstance', 'apiTokenInstance'] as const;
+const INSTANCE_FIELDS = ['idInstance', 'apiTokenInstance'] as const;
 
 const isInstance = (value: unknown): value is Instance =>
   typeof value === 'object' &&

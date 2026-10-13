@@ -7,7 +7,6 @@ import { setupStore, type RootState } from '@/store';
 import type { Instance } from '@/types';
 
 export const TEST_INSTANCE: Instance = {
-  apiUrl: 'https://api.test',
   idInstance: '1101000001',
   apiTokenInstance: 'test-token',
 };

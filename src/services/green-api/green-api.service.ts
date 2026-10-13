@@ -9,6 +9,7 @@ import {
 import type { RootState } from '@/store';
 import { authActions, selectInstance } from '@/store/slices/auth.slice';
 import type { Instance } from '@/types';
+import { getApiUrl } from '@/utils/instance.utils';
 
 export interface GreenApiRequest extends Omit<FetchArgs, 'url'> {
   /** GREEN-API method name, e.g. `sendMessage`. */
@@ -24,11 +25,11 @@ const REQUEST_TIMEOUT_MS = 15_000;
 const fetchQuery = fetchBaseQuery({ timeout: REQUEST_TIMEOUT_MS });
 
 export const buildUrl = (
-  { apiUrl, idInstance, apiTokenInstance }: Instance,
+  { idInstance, apiTokenInstance }: Instance,
   apiMethod: string,
   pathParam?: string | number
 ): string => {
-  const url = `${apiUrl}/waInstance${idInstance}/${apiMethod}/${apiTokenInstance}`;
+  const url = `${getApiUrl(idInstance)}/waInstance${idInstance}/${apiMethod}/${apiTokenInstance}`;
 
   return pathParam === undefined ? url : `${url}/${pathParam}`;
 };

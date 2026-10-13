@@ -1,13 +1,6 @@
-/** The shared host of the MAX API; an instance may have its own, shown in the console. */
-export const DEFAULT_API_URL = 'https://api.green-api.com/v3';
-
-/** The console shows the host with a trailing slash; URLs are built without it. */
-export const normalizeApiUrl = (url: string): string => url.trim().replace(/\/+$/, '');
-
-export const isValidApiUrl = (url: string): boolean => {
-  try {
-    return ['http:', 'https:'].includes(new URL(url).protocol);
-  } catch {
-    return false;
-  }
-};
+/**
+ * GREEN-API serves an instance from the host named after the first four digits of its id:
+ * 3100… lives on 3100.api.green-api.com. The console shows the same address as `apiUrl`.
+ */
+export const getApiUrl = (idInstance: string): string =>
+  `https://${idInstance.slice(0, 4)}.api.green-api.com`;

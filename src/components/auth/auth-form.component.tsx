@@ -8,13 +8,12 @@ import { greenApiEndpoints, useAuthorizeMutation } from '@/services/green-api/gr
 import { authActions, selectSessionExpired } from '@/store/slices/auth.slice';
 import type { Instance } from '@/types';
 import { getErrorMessage } from '@/utils/error.utils';
-import { DEFAULT_API_URL, isValidApiUrl, normalizeApiUrl } from '@/utils/instance.utils';
 
 import styles from './auth-form.module.css';
 
 type FormErrors = Partial<Record<keyof Instance, string>>;
 
-const validate = ({ idInstance, apiTokenInstance, apiUrl }: Instance): FormErrors => {
+const validate = ({ idInstance, apiTokenInstance }: Instance): FormErrors => {
   const errors: FormErrors = {};
 
   if (!/^\d+$/.test(idInstance)) {
@@ -22,9 +21,6 @@ const validate = ({ idInstance, apiTokenInstance, apiUrl }: Instance): FormError
   }
   if (!apiTokenInstance) {
     errors.apiTokenInstance = 'Введите apiTokenInstance';
-  }
-  if (!isValidApiUrl(apiUrl)) {
-    errors.apiUrl = `Введите адрес вида ${DEFAULT_API_URL}`;
   }
   return errors;
 };
@@ -42,7 +38,6 @@ export const AuthForm = () => {
     const instance: Instance = {
       idInstance: String(form.get('idInstance')).trim(),
       apiTokenInstance: String(form.get('apiTokenInstance')).trim(),
-      apiUrl: normalizeApiUrl(String(form.get('apiUrl'))),
     };
     const validationErrors = validate(instance);
 
@@ -84,14 +79,6 @@ export const AuthForm = () => {
         type="password"
         autoComplete="off"
         error={errors.apiTokenInstance}
-      />
-      <TextField
-        label="Адрес API"
-        name="apiUrl"
-        type="url"
-        defaultValue={DEFAULT_API_URL}
-        hint="Поле apiUrl в личном кабинете"
-        error={errors.apiUrl}
       />
 
       <label className={styles.remember}>

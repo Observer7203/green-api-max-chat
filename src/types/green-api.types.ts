@@ -2,7 +2,6 @@
 
 /** Credentials of an instance, as shown in the GREEN-API console. */
 export interface Instance {
-  apiUrl: string;
   idInstance: string;
   apiTokenInstance: string;
 }
