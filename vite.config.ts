@@ -4,6 +4,9 @@ import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Relative paths: the build works both at the root of a domain and in a subfolder,
+  // which is where GitHub Pages puts it.
+  base: './',
   plugins: [react()],
   resolve: {
     tsconfigPaths: true,
