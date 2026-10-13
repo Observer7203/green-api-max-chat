@@ -2,6 +2,8 @@
 
 Чат для MAX на GREEN-API.
 
+Опубликованная версия: https://observer7203.github.io/green-api-max-chat/
+
 ## Запуск
 
 Node.js 20.19 или новее.
