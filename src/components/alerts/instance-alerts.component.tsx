@@ -26,7 +26,9 @@ const MAX_INSTANCE_TYPE = 'v3';
 const ConnectionAlert = () => {
   const isOffline = useAppSelector(selectIsOffline);
 
-  return isOffline ? <Alert tone="danger">Нет связи с GREEN-API. Переподключаемся…</Alert> : null;
+  return isOffline ? (
+    <Alert tone="danger">GREEN-API не отдаёт уведомления. Повторяем попытку…</Alert>
+  ) : null;
 };
 
 const AuthorizationAlert = () => {
