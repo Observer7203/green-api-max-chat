@@ -27,7 +27,9 @@ const ConnectionAlert = () => {
   const isOffline = useAppSelector(selectIsOffline);
 
   return isOffline ? (
-    <Alert tone="danger">GREEN-API не отдаёт уведомления. Повторяем попытку…</Alert>
+    <Alert tone="danger">
+      GREEN-API не отдаёт уведомления. Пока сообщения обновляются раз в несколько секунд.
+    </Alert>
   ) : null;
 };
 
