@@ -5,8 +5,8 @@
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: hsl(var(--avatar-hue) 42% 46%);
-  color: #fff;
+  background: var(--accent);
+  color: var(--on-accent);
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.02em;

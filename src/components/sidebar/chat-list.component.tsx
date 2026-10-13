@@ -25,7 +25,7 @@ const ChatListItem = ({ chat, isActive, onSelect }: ChatListItemProps) => {
       aria-current={isActive ? 'true' : undefined}
       onClick={() => onSelect(chatId)}
     >
-      <Avatar name={title} seed={chatId} />
+      <Avatar name={title} />
       <span className={styles.body}>
         <span className={styles.row}>
           <span className={styles.name}>{title}</span>

@@ -50,7 +50,7 @@ export const Conversation = ({ chatId }: { chatId: string }) => {
         >
           <BackIcon />
         </Button>
-        <Avatar name={title} seed={chatId} />
+        <Avatar name={title} />
         <div className={styles.title}>
           <h2 className={styles.name}>{title}</h2>
           {/* A chat that is still named by its number would show the number twice. */}

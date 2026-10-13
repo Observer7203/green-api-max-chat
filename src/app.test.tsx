@@ -83,15 +83,31 @@ describe('App', () => {
     expect(loadInstance()).toBeNull();
   });
 
-  it('validates the form before sending anything', async () => {
+  it('keeps the login button inactive until both fields are filled in', async () => {
+    stubInstance();
+    const user = userEvent.setup();
+    renderWithStore(<App />, setupStore());
+    const button = screen.getByRole('button', { name: 'Войти' });
+
+    expect(button).toBeDisabled();
+
+    await user.type(screen.getByLabelText('idInstance'), TEST_INSTANCE.idInstance);
+    expect(button).toBeDisabled();
+
+    await user.type(screen.getByLabelText('apiTokenInstance'), 'token');
+    expect(button).toBeEnabled();
+  });
+
+  it('rejects an idInstance that is not a number without sending anything', async () => {
     const fetchMock = stubInstance();
     const user = userEvent.setup();
     renderWithStore(<App />, setupStore());
 
+    await user.type(screen.getByLabelText('idInstance'), '31OO');
+    await user.type(screen.getByLabelText('apiTokenInstance'), 'token');
     await user.click(screen.getByRole('button', { name: 'Войти' }));
 
     expect(screen.getByText('idInstance состоит только из цифр')).toBeInTheDocument();
-    expect(screen.getByText('Введите apiTokenInstance')).toBeInTheDocument();
     expect(fetchMock).not.toHaveBeenCalled();
   });
 

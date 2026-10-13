@@ -10,15 +10,12 @@
 }
 
 .form .submit {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-m);
-  background: var(--text);
-  color: var(--surface);
+  margin-top: 2px;
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 .form .submit:hover:not(:disabled) {
-  background: var(--text);
-  color: var(--surface);
-  opacity: 0.85;
+  background: var(--accent-hover);
+  color: var(--on-accent);
 }

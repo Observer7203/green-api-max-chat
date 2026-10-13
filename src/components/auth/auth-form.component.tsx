@@ -11,38 +11,35 @@ import { getErrorMessage } from '@/utils/error.utils';
 
 import styles from './auth-form.module.css';
 
-type FormErrors = Partial<Record<keyof Instance, string>>;
-
-const validate = ({ idInstance, apiTokenInstance }: Instance): FormErrors => {
-  const errors: FormErrors = {};
-
-  if (!/^\d+$/.test(idInstance)) {
-    errors.idInstance = 'idInstance состоит только из цифр';
-  }
-  if (!apiTokenInstance) {
-    errors.apiTokenInstance = 'Введите apiTokenInstance';
-  }
-  return errors;
-};
+const readInstance = (form: FormData): Instance => ({
+  idInstance: String(form.get('idInstance')).trim(),
+  apiTokenInstance: String(form.get('apiTokenInstance')).trim(),
+});
 
 export const AuthForm = () => {
   const dispatch = useAppDispatch();
   const sessionExpired = useAppSelector(selectSessionExpired);
   const [authorize, { isLoading, error }] = useAuthorizeMutation();
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [isComplete, setIsComplete] = useState(false);
+  const [idError, setIdError] = useState<string>();
+
+  // The inputs stay uncontrolled: the form only needs to know whether both are filled in,
+  // to keep the button inactive until then.
+  const handleChange = (event: FormEvent<HTMLFormElement>) => {
+    const { idInstance, apiTokenInstance } = readInstance(new FormData(event.currentTarget));
+
+    setIsComplete(idInstance !== '' && apiTokenInstance !== '');
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const form = new FormData(event.currentTarget);
-    const instance: Instance = {
-      idInstance: String(form.get('idInstance')).trim(),
-      apiTokenInstance: String(form.get('apiTokenInstance')).trim(),
-    };
-    const validationErrors = validate(instance);
+    const instance = readInstance(form);
+    const isIdValid = /^\d+$/.test(instance.idInstance);
 
-    setErrors(validationErrors);
-    if (Object.keys(validationErrors).length > 0) {
+    setIdError(isIdValid ? undefined : 'idInstance состоит только из цифр');
+    if (!isIdValid) {
       return;
     }
 
@@ -58,7 +55,7 @@ export const AuthForm = () => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit} noValidate>
+    <form className={styles.form} onChange={handleChange} onSubmit={handleSubmit} noValidate>
       {sessionExpired && !error && (
         <Alert>GREEN-API больше не принимает сохранённый токен. Войдите заново.</Alert>
       )}
@@ -70,7 +67,7 @@ export const AuthForm = () => {
         inputMode="numeric"
         autoComplete="off"
         placeholder="3100000001"
-        error={errors.idInstance}
+        error={idError}
         autoFocus
       />
       <TextField
@@ -78,7 +75,6 @@ export const AuthForm = () => {
         name="apiTokenInstance"
         type="password"
         autoComplete="off"
-        error={errors.apiTokenInstance}
       />
 
       <label className={styles.remember}>
@@ -86,7 +82,7 @@ export const AuthForm = () => {
         Запомнить на этом устройстве
       </label>
 
-      <Button type="submit" className={styles.submit} isLoading={isLoading}>
+      <Button type="submit" className={styles.submit} disabled={!isComplete} isLoading={isLoading}>
         Войти
       </Button>
     </form>
