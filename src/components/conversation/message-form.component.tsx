@@ -7,7 +7,7 @@ import { useSendMessageMutation } from '@/services/green-api/green-api.endpoints
 import styles from './message-form.module.css';
 
 /** The limit of the `sendMessage` method. */
-const MAX_MESSAGE_LENGTH = 20_000;
+const MAX_MESSAGE_LENGTH = 4_000;
 
 export const MessageForm = ({ chatId }: { chatId: string }) => {
   const [sendMessage] = useSendMessageMutation();
