@@ -4,7 +4,7 @@ import { Alert } from '@/components/ui/alert.component';
 import { Button } from '@/components/ui/button.component';
 import { TextField } from '@/components/ui/text-field.component';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux.hook';
-import { useAuthorizeMutation } from '@/services/green-api/green-api.endpoints';
+import { greenApiEndpoints, useAuthorizeMutation } from '@/services/green-api/green-api.endpoints';
 import { authActions, selectSessionExpired } from '@/store/slices/auth.slice';
 import type { Instance } from '@/types';
 import { getErrorMessage } from '@/utils/error.utils';
@@ -52,9 +52,12 @@ export const AuthForm = () => {
     }
 
     // Credentials are stored only after GREEN-API has accepted them.
-    const result = await authorize(instance);
+    const { data: state } = await authorize(instance);
 
-    if (!result.error) {
+    if (state) {
+      // The answer is also the first reading of the instance state. Asking for it again
+      // right after login would exceed the limit of one such request per second.
+      dispatch(greenApiEndpoints.util.upsertQueryData('getStateInstance', undefined, state));
       dispatch(authActions.loggedIn({ instance, remember: form.get('remember') === 'on' }));
     }
   };
