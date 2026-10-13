@@ -62,10 +62,24 @@ describe('pollNotifications', () => {
   it('keeps polling while the queue is empty', async () => {
     const loop = runLoop([null, null, createNotification(1)]);
 
+    await vi.runAllTimersAsync();
     await loop.finished;
 
     expect(loop.receive).toHaveBeenCalledTimes(4);
     expect(loop.onNotification).toHaveBeenCalledTimes(1);
+  });
+
+  it('asks an empty queue at most once a second, even if the API answers at once', async () => {
+    const loop = runLoop([null, null, null]);
+
+    await vi.advanceTimersByTimeAsync(999);
+    expect(loop.receive).toHaveBeenCalledTimes(1);
+
+    await vi.advanceTimersByTimeAsync(1);
+    expect(loop.receive).toHaveBeenCalledTimes(2);
+
+    await vi.runAllTimersAsync();
+    await loop.finished;
   });
 
   it('retries after a failure and reports the connection going down and coming back', async () => {

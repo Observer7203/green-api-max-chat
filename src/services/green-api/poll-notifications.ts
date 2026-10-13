@@ -13,6 +13,12 @@ export interface PollNotificationsOptions {
 
 const RETRY_DELAYS_MS = [1_000, 2_000, 5_000, 10_000, 30_000];
 
+/**
+ * The API is documented to hold the request until a notification arrives, but in practice
+ * it may answer an empty queue at once. This keeps the loop from turning into a flood.
+ */
+const MIN_POLL_INTERVAL_MS = 1_000;
+
 /** Resolves after `ms`, or at once if the loop is stopped in the meantime. */
 const wait = (ms: number, signal: AbortSignal): Promise<void> =>
   new Promise((resolve) => {
@@ -44,6 +50,7 @@ export const pollNotifications = async ({
 
   while (!signal.aborted) {
     try {
+      const startedAt = Date.now();
       const notification = await receive(signal);
 
       if (signal.aborted) {
@@ -54,6 +61,7 @@ export const pollNotifications = async ({
         onConnectionChange?.(true);
       }
       if (!notification) {
+        await wait(MIN_POLL_INTERVAL_MS - (Date.now() - startedAt), signal);
         continue;
       }
 
