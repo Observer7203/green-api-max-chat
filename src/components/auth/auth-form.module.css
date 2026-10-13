@@ -5,18 +5,46 @@
 }
 
 .remember {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-size: 14px;
   cursor: pointer;
 }
 
-.remember input {
-  width: 16px;
-  height: 16px;
+/* The native checkbox is invisible but stays in place: the keyboard and screen readers use it. */
+.checkbox {
+  position: absolute;
+  width: 20px;
+  height: 20px;
   margin: 0;
-  accent-color: var(--accent);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.box {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--text-muted);
+  border-radius: 6px;
+  color: transparent;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s;
+}
+
+.checkbox:checked + .box {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.checkbox:focus-visible + .box {
+  box-shadow: var(--focus-ring);
 }
 
 .submit {

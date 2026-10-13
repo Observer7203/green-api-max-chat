@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 
 import { Alert } from '@/components/ui/alert.component';
 import { Button } from '@/components/ui/button.component';
+import { CheckIcon } from '@/components/ui/icons';
 import { TextField } from '@/components/ui/text-field.component';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux.hook';
 import { greenApiEndpoints, useAuthorizeMutation } from '@/services/green-api/green-api.endpoints';
@@ -78,7 +79,10 @@ export const AuthForm = () => {
       />
 
       <label className={styles.remember}>
-        <input type="checkbox" name="remember" />
+        <input type="checkbox" name="remember" className={styles.checkbox} />
+        <span className={styles.box}>
+          <CheckIcon width={14} height={14} strokeWidth={3} />
+        </span>
         Запомнить на этом устройстве
       </label>
 
